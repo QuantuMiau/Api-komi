@@ -73,9 +73,6 @@ io.on('connection', (socket) => {
   });
 });
 
-const socket = io('https://api-eru.onrender.com', {
-  transports: ['websocket']
-});
 
 
 // Routes
