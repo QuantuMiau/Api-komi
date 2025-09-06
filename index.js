@@ -50,9 +50,20 @@ app.use((req, res, next) => {
 
 // Create HTTP server and Socket.IO instance
 const server = http.createServer(app);
+const allowedOrigins = [
+  'https://komi-page.vercel.app',
+  'http://localhost:3000'
+];
+
 const io = new Server(server, {
-  cors: { origin: '*' }  // Ajusta a tu dominio o localhost para seguridad
+  cors: {
+    origin: allowedOrigins,
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
 });
+
+
 
 io.on('connection', (socket) => {
   console.log('Cliente conectado', socket.id);
@@ -62,6 +73,9 @@ io.on('connection', (socket) => {
   });
 });
 
+const socket = io('https://api-eru.onrender.com', {
+  transports: ['websocket']
+});
 
 
 // Routes
